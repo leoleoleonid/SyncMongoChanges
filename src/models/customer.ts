@@ -10,7 +10,7 @@ interface IAddress {
     country: string;
 }
 
-interface ICustomer extends Document {
+export interface ICustomer extends Document {
     firstName: string;
     lastName: string;
     email: string;
