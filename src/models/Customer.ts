@@ -32,20 +32,9 @@ const customerSchema = new Schema<ICustomer>({
     country: { type: String, required: true },
   },
   createdAt: { type: Date, default: Date.now },
-});
+  updatedAt: { type: Date, default: Date.now },
+}, {timestamps: true});
 
-//IF YOU CAN"T RUN YOUR DB IN REPLICA SET MODE, use this post hooks to send events to sync app
-
-// customerSchema.post<ICustomer | ICustomer[]>(
-//     ['findOneAndReplace', 'findOneAndUpdate', 'replaceOne', 'updateMany', 'save', 'updateOne'],
-//     {document: true, query: true},
-//     function (doc) {
-//        //SEND DATA TO SYNC SERVER FROM HERE
-//     }
-// );
-// customerSchema.post<ICustomer | ICustomer[]>('insertMany', function (doc) {
-//        //SEND DATA TO SYNC SERVER FROM HERE
-// });
 export const customerCollection = "customer";
 const CustomerModel = model(customerCollection, customerSchema);
 

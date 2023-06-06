@@ -1,7 +1,6 @@
 import CustomerModel, { ICustomer } from "./models/Customer";
 import ModeModel, { IStatus } from "./models/ModeStatus";
 import mongoose, { Schema } from "mongoose";
-import Queue from "./models/Queue";
 import AnonymizeCustomerModel from "./models/CustomerAnonymised";
 import QueueModel from "./models/Queue";
 

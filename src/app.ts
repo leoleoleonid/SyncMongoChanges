@@ -34,18 +34,5 @@ mongoose.connect(mongoURI).then(async () => {
   });
 
   await addCustomers()
-  setInterval(addCustomers, addCustomersInterval);
-  const changeStream = CustomerModel.watch([], {
-    fullDocument: "updateLookup",
-  });
-
-  changeStream.on("change", async (data) => {
-    const existedId = await QueueModel.findOne({ id: data.fullDocument._id });
-    if (!existedId) {
-      const updated = new QueueModel({ id: data.fullDocument._id });
-      updated.save().catch((e) => {
-        console.error(e);
-      });
-    }
-  });
+  setInterval(addCustomers, 10000);
 });

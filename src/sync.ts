@@ -32,15 +32,7 @@ mongoose
 
       process.exit(0);
     } else {
-      CustomerModel.watch([], { fullDocument: "updateLookup" }).on(
-        "change",
-        (data) => {
-          // console.log('data.fullDocument.firstName',data.fullDocument._id);
-          updater.pushCustomers([data.fullDocument]);
-        }
-      );
-
-      await updater.upsertCustomers()
+      await updater.upsertCustomers();
       setInterval(() => {
         updater.upsertCustomers();
       }, upsertInterval);
