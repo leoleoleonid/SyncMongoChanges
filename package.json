@@ -5,10 +5,15 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "prestart:app": "npm run build",
     "start:app": "node ./build/app.js",
+    "prestart:sync": "npm run build",
     "start:sync": "node ./build/sync.js",
+    "prefullReindex": "npm run build",
+    "fullReindex": "node ./build/sync.js --full-reindex",
     "dev:app": "nodemon",
     "dev:sync": "ts-node src/sync.ts",
+    "dev:reindex": "ts-node src/sync.ts --full-reindex",
     "format": "prettier --write \"src/**/*.+(js|jsx|json|css|md|ts)\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
