@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import CustomerModel, { generateUser, ICustomer } from "./models/Customer";
 import * as dotenv from "dotenv";
-import QueueModel from "./models/Queue";
 
 dotenv.config();
 
@@ -33,6 +32,6 @@ mongoose.connect(mongoURI).then(async () => {
     console.log("Connected to MongoDB");
   });
 
-  await addCustomers()
-  setInterval(addCustomers, 10000);
+  await addCustomers();
+  setInterval(addCustomers, addCustomersInterval);
 });

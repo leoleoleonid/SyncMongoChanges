@@ -4,7 +4,6 @@ import * as dotenv from "dotenv";
 import { updater } from "./updater";
 import * as process from "process";
 import ModeModel from "./models/ModeStatus";
-import QueueModel from "./models/Queue";
 import AnonymizeCustomerModel from "./models/CustomerAnonymised";
 
 dotenv.config();

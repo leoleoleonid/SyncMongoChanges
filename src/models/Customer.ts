@@ -17,23 +17,27 @@ export interface ICustomer extends Document {
   email: string;
   address: IAddress;
   createdAt: Date;
+  updatedAt: Date;
 }
 
-const customerSchema = new Schema<ICustomer>({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true },
-  address: {
-    line1: { type: String, required: true },
-    line2: { type: String },
-    postcode: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    country: { type: String, required: true },
+const customerSchema = new Schema<ICustomer>(
+  {
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
+    address: {
+      line1: { type: String, required: true },
+      line2: { type: String },
+      postcode: { type: String, required: true },
+      city: { type: String, required: true },
+      state: { type: String, required: true },
+      country: { type: String, required: true },
+    },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
   },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-}, {timestamps: true});
+  { timestamps: true }
+);
 
 export const customerCollection = "customer";
 const CustomerModel = model(customerCollection, customerSchema);
