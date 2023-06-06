@@ -3,6 +3,7 @@ import ModeModel, { IStatus } from "./models/ModeStatus";
 import mongoose, { Schema } from "mongoose";
 import Queue from "./models/Queue";
 import AnonymizeCustomerModel from "./models/CustomerAnonymised";
+import QueueModel from "./models/Queue";
 
 class Updater {
   // customers ready to update
@@ -121,6 +122,11 @@ class Updater {
   }
 
   async fullReindex(): Promise<void> {
+    //todo add transaction
+    await ModeModel.deleteMany();
+    await new ModeModel({ fullReindex: true }).save();
+    await QueueModel.deleteMany();
+    await AnonymizeCustomerModel.deleteMany();
     const updatedIds: Schema.Types.ObjectId[] = [];
     const customersCount = await CustomerModel.count();
     while (updatedIds.length < customersCount) {
@@ -133,6 +139,9 @@ class Updater {
       });
       await AnonymizeCustomerModel.insertMany(anonymizedToUpdate);
     }
+
+    await ModeModel.deleteMany();
+    await new ModeModel({ fullReindex: false }).save();
   }
 }
 

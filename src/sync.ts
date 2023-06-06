@@ -27,15 +27,9 @@ mongoose
     });
 
     if (isFullReindex) {
-      //todo add transaction
-      await ModeModel.deleteMany();
-      await new ModeModel({ fullReindex: true }).save();
-      await QueueModel.deleteMany();
-      await AnonymizeCustomerModel.deleteMany();
+
       await updater.fullReindex();
 
-      await ModeModel.deleteMany();
-      await new ModeModel({ fullReindex: false }).save();
       process.exit(0);
     } else {
       CustomerModel.watch([], { fullDocument: "updateLookup" }).on(
