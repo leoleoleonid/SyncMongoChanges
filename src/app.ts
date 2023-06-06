@@ -6,7 +6,9 @@ import QueueModel from "./models/Queue";
 dotenv.config();
 
 const mongoURI = process.env.MONGO_URI || "mongodb://mongo:27017/mydatabase";
-const addCustomersInterval = parseInt(process.env.ADD_CUSTOMERS_INTERVAL || '200');
+const addCustomersInterval = parseInt(
+  process.env.ADD_CUSTOMERS_INTERVAL || "200"
+);
 
 function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -14,7 +16,7 @@ function getRandomInt(min: number, max: number): number {
 
 const addCustomers = async (): Promise<void> => {
   try {
-    const length = getRandomInt(1, 2);
+    const length = getRandomInt(1, 10);
     const customers: Partial<ICustomer>[] = Array(length)
       .fill(null)
       .map((i) => generateUser());
@@ -31,6 +33,7 @@ mongoose.connect(mongoURI).then(async () => {
     console.log("Connected to MongoDB");
   });
 
+  await addCustomers()
   setInterval(addCustomers, addCustomersInterval);
   const changeStream = CustomerModel.watch([], {
     fullDocument: "updateLookup",
@@ -45,5 +48,4 @@ mongoose.connect(mongoURI).then(async () => {
       });
     }
   });
-
 });

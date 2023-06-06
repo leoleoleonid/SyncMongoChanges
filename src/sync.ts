@@ -46,6 +46,7 @@ mongoose
         }
       );
 
+      await updater.upsertCustomers()
       setInterval(() => {
         updater.upsertCustomers();
       }, upsertInterval);

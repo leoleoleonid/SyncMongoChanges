@@ -97,7 +97,7 @@ class Updater {
       session.startTransaction();
       const omitIds = Array.from(this.customersMap.keys());
       await this.addCustomersFromQueue(omitIds);
-      const query = Array.from(this.customersMap.values()).map((customer) => ({
+      const upsertQuery = Array.from(this.customersMap.values()).map((customer) => ({
         updateOne: {
           filter: { _id: customer._id },
           update: { $set: customer },
@@ -106,7 +106,7 @@ class Updater {
       }));
 
       const ids = Array.from(this.customersMap.keys());
-      await AnonymizeCustomerModel.bulkWrite(query, { session });
+      await AnonymizeCustomerModel.bulkWrite(upsertQuery, { session });
       await Queue.deleteMany({ id: { $in: ids } }).session(session);
       await session.commitTransaction();
       await session.endSession();
@@ -117,7 +117,6 @@ class Updater {
       console.error(e);
       await session.abortTransaction();
       await session.endSession();
-      // rollback transaction
     }
   }
 

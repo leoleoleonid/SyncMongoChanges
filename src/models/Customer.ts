@@ -40,11 +40,11 @@ const customerSchema = new Schema<ICustomer>({
 //     ['findOneAndReplace', 'findOneAndUpdate', 'replaceOne', 'updateMany', 'save', 'updateOne'],
 //     {document: true, query: true},
 //     function (doc) {
-//
+//        //SEND DATA TO SYNC SERVER FROM HERE
 //     }
 // );
 // customerSchema.post<ICustomer | ICustomer[]>('insertMany', function (doc) {
-//
+//        //SEND DATA TO SYNC SERVER FROM HERE
 // });
 export const customerCollection = "customer";
 const CustomerModel = model(customerCollection, customerSchema);
